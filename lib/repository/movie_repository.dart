@@ -19,4 +19,6 @@ class MovieRepository {
   Future<Movies> getPopularMovies() => movieApi.getPopular();
 
   Future<Movies> getTopRatedMovies() => movieApi.getTopRated();
+
+  Future<Movies> searchMovies(String query) => movieApi.search(query);
 }

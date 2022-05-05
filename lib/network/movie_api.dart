@@ -46,4 +46,10 @@ class MovieApi {
     final response = await _dio.get(AppString.topRated);
     return Movies.fromJson(response.data);
   }
+
+  Future<Movies> search(String query) async {
+    final response =
+        await _dio.get(AppString.search, queryParameters: {"query": query});
+    return Movies.fromJson(response.data);
+  }
 }

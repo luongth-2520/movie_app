@@ -1,3 +1,4 @@
+import 'package:movie_app/models/casts.dart';
 import 'package:movie_app/models/movies.dart';
 import 'package:movie_app/network/movie_api.dart';
 
@@ -21,4 +22,6 @@ class MovieRepository {
   Future<Movies> getTopRatedMovies() => movieApi.getTopRated();
 
   Future<Movies> searchMovies(String query) => movieApi.search(query);
+
+  Future<Casts> getCasts(int movieId) => movieApi.getCasts(movieId);
 }

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/extensions/string_extensions.dart';
 import 'package:movie_app/models/movie.dart';
-
+import 'package:movie_app/screens/detail/detail_screen.dart';
 import '../../../constants/constanst.dart';
 
 class MovieItem extends StatelessWidget {
@@ -48,7 +48,9 @@ class MovieItem extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, DetailScreen.routeName, arguments: movie);
+      },
     );
   }
 }

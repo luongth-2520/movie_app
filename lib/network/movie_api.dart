@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:movie_app/constants/constanst.dart';
+import 'package:movie_app/models/casts.dart';
 import 'package:movie_app/models/movies.dart';
 
 class MovieApi {
@@ -51,5 +52,11 @@ class MovieApi {
     final response =
         await _dio.get(AppString.search, queryParameters: {"query": query});
     return Movies.fromJson(response.data);
+  }
+
+  Future<Casts> getCasts(int movieId) async {
+    final response =
+        await _dio.get("${AppString.movie}/$movieId${AppString.credits}");
+    return Casts.fromJson(response.data);
   }
 }

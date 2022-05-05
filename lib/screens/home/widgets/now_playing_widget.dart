@@ -25,7 +25,8 @@ class NowPlaying extends ConsumerWidget {
           items: _getListImages(value),
         );
       },
-      error: (error, stack) => Center(child: Text(error.toString())),
+      error: (error, stack) =>
+          const Center(child: Text(AppString.errorMessage)),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }

@@ -115,6 +115,7 @@ android/app/release/
 android/app/src/production/
 
 *.g.dart
+*.freezed.dart
 
 *.dSYM.zip
 *.ipa

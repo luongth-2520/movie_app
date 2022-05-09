@@ -14,54 +14,82 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  static const int home = 0;
-  static const int search = 1;
-  static const int favorite = 2;
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const SearchScreen(),
-    const FavoriteScreen(),
-  ];
+  static const int homeTabIndex = 0;
+  static const int searchTabIndex = 1;
+  static const int favoriteTabIndex = 2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: _bottomNavigationBar,
-      body: _screens[_selectedIndex],
+      body: IndexedStack(
+        children: const [
+          HomeScreen(),
+          SearchScreen(),
+          FavoriteScreen(),
+        ],
+        index: _selectedIndex,
+      ),
     );
   }
 
   Widget get _bottomNavigationBar {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(AppSize.size_8),
-        topRight: Radius.circular(AppSize.size_8),
-      ),
-      child: BottomNavigationBar(
-        selectedItemColor: Colors.red,
-        elevation: AppSize.size_8,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppImages.iconHome,
-              color: _selectedIndex == home ? Colors.red : Colors.black,
-            ),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppImages.iconSearch, color: _selectedIndex == search ? Colors.red : Colors.black),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon:
-                SvgPicture.asset(AppImages.iconFavorite, color: _selectedIndex == favorite ? Colors.red : Colors.black),
-            label: "Favorites",
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(AppSize.size_8),
+          topRight: Radius.circular(AppSize.size_8),
+        ),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: AppSize.size_8),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(AppSize.size_8),
+          topRight: Radius.circular(AppSize.size_8),
+        ),
+        child: BottomNavigationBar(
+          selectedItemColor: Colors.red,
+          elevation: AppSize.size_8,
+          items: [
+            BottomNavigationBarItem(
+              icon: _getIcon(_selectedIndex, homeTabIndex),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: _getIcon(_selectedIndex, searchTabIndex),
+              label: "Search",
+            ),
+            BottomNavigationBarItem(
+              icon: _getIcon(_selectedIndex, favoriteTabIndex),
+              label: "Favorites",
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
+      ),
+    );
+  }
+
+  Widget _getIcon(index, tabIndex) {
+    String icon;
+    switch (tabIndex) {
+      case searchTabIndex:
+        icon = AppImages.iconSearch;
+        break;
+      case favoriteTabIndex:
+        icon = AppImages.iconFavorite;
+        break;
+      default:
+        icon = AppImages.iconHome;
+        break;
+    }
+    return SvgPicture.asset(
+      icon,
+      color: index == tabIndex ? Colors.red : Colors.black,
     );
   }
 

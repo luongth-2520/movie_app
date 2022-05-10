@@ -31,4 +31,19 @@ class MovieApi {
     final response = await _dio.get(AppString.nowPlaying);
     return Movies.fromJson(response.data);
   }
+
+  Future<Movies> getUpcoming() async {
+    final response = await _dio.get(AppString.upComing);
+    return Movies.fromJson(response.data);
+  }
+
+  Future<Movies> getPopular() async {
+    final response = await _dio.get(AppString.popular);
+    return Movies.fromJson(response.data);
+  }
+
+  Future<Movies> getTopRated() async {
+    final response = await _dio.get(AppString.topRated);
+    return Movies.fromJson(response.data);
+  }
 }

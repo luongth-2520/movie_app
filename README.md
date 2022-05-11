@@ -1,6 +1,6 @@
-# movie_app
+# The MovieDB App
 
-A new Flutter project.
+A practice Flutter project.
 
 ## Getting Started
 

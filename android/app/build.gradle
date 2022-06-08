@@ -57,6 +57,7 @@ android {
         versionName project.env.get("VER_NAME")
 
         resValue "string", "build_config_package", "com.example.movie_app"
+        multiDexEnabled true
     }
 
     buildTypes {

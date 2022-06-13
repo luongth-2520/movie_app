@@ -80,6 +80,10 @@ android {
             dimension "environment"
         }
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 flutter {

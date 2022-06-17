@@ -9,7 +9,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app/screens/detail/detail_screen.dart';
 import 'package:movie_app/screens/main/main_screen.dart';
+import 'package:movie_app/screens/maps/maps_screen.dart';
 import 'package:movie_app/screens/post/post_screen.dart';
+import 'package:movie_app/utils/platform_channel_util.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -19,7 +21,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
     playSound: true);
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
- final _navigationKey = GlobalKey<NavigatorState>();
+final _navigationKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +29,9 @@ void main() async {
   initDynamicLinks();
 
   await FlutterConfig.loadEnvVariables();
+
+  final mapKey = FlutterConfig.get("MAP_KEY");
+  MapKeyIOS().setMapKey(mapKey);
 
   var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettingsIOS = IOSInitializationSettings(
@@ -85,10 +90,8 @@ void handleDynamicLink(Uri url) {
   List<String> separatedString = [];
   separatedString.addAll(url.path.split('/'));
   if (separatedString[1] == "post") {
-     Navigator.push(
-          _navigationKey.currentState!.context,
-          MaterialPageRoute(
-              builder: (context) => PostScreen(number: separatedString[2])));
+    Navigator.push(_navigationKey.currentState!.context,
+        MaterialPageRoute(builder: (context) => PostScreen(number: separatedString[2])));
   }
 }
 
@@ -150,7 +153,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       navigatorKey: _navigationKey,
       home: const MainScreen(),
-      routes: {DetailScreen.routeName: (context) => const DetailScreen()},
+      routes: {
+        DetailScreen.routeName: (context) => const DetailScreen(),
+        MapsScreen.routeName: (context) => MapsScreen()
+      },
     );
   }
 }

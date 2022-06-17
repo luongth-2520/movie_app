@@ -49,9 +49,19 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        def apiKey = "project.env.get('MAP_KEY')"
+        // def apiPropertiesFile = rootProject.file("../" + project.env.get("MAP_KEY"))
+        // if (apiPropertiesFile.exists()) {
+        //     try {
+        //         def json = new JsonSlurper().parseText(apiPropertiesFile.text)
+        //         apiKey = json['MAP_KEY']
+        //     } catch(Exception ex){
+        //         ex.printStackTrace()
+        //     }
+        // }
+        manifestPlaceholders = [MAP_KEY:apiKey]
         applicationId project.env.get("APP_ID")
-        minSdkVersion 19
+        minSdkVersion 20
         targetSdkVersion flutter.targetSdkVersion
         versionCode project.env.get("VER_CODE").toInteger()
         versionName project.env.get("VER_NAME")

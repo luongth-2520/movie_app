@@ -9,6 +9,7 @@ import 'package:movie_app/models/movie.dart';
 import 'package:movie_app/screens/detail/clipper/notched_clipper.dart';
 import 'package:movie_app/screens/detail/detail_viewmodel.dart';
 import 'package:movie_app/screens/detail/widgets/casts_list_widget.dart';
+import 'package:movie_app/screens/maps/maps_screen.dart';
 
 class DetailScreen extends ConsumerWidget {
   static const routeName = "DetailScreen";
@@ -97,6 +98,14 @@ class DetailScreen extends ConsumerWidget {
                         ),
                       ),
                     ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(MapsScreen.routeName);
+                  },
+                  child: Text(
+                    "Go to maps",
                   ),
                 )
               ],
